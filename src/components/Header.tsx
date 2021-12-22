@@ -24,7 +24,7 @@ function Header() {
                     </Link>
                 </div>
             </div>
-            
+
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, {MouseEventHandler, useEffect, useRef, useState} from "react";
 
 type PropsType = {
-    filters: Array<string>
+    filters: any
 }
 
 const Sorter: React.FC<PropsType> = (props) => {
@@ -12,7 +12,7 @@ const Sorter: React.FC<PropsType> = (props) => {
     // Ссылка на div-элемент попапа сортировки
     const sortRef = useRef()
     // Ссылка на выбранный фильтр
-    const activeLabel = props.filters[activeFilter]
+    const activeLabel = props.filters[activeFilter].name
     // Подписка на все события кликов
     useEffect(() => {
         document.body.addEventListener('click', handleOutsideClick)
@@ -50,18 +50,18 @@ const Sorter: React.FC<PropsType> = (props) => {
                         fill="#2C2C2C"
                     />
                 </svg>
-                <b>Sorting by:</b>
+                <b>Сортировка по:</b>
                 <span onClick={toggleSortingPopup}> {activeLabel} </span>
             </div>
 
             { sortingPopup &&
             <div className="sort__popup">
                 <ul>
-                    { props.filters.map((filter:string, index:number) =>
+                    { props.filters.map((filter: any, index:number) =>
                     <li className={activeFilter === index ? 'active' : ''}
                         key={index}
                         onClick={() => onSelectedFilter(index)}>
-                        {filter}
+                        {filter.name}
                     </li>
                     )}
                 </ul>
