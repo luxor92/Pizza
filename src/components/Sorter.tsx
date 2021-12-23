@@ -1,10 +1,10 @@
-import React, {MouseEventHandler, useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
 
 type PropsType = {
     filters: any
 }
 
-const Sorter: React.FC<PropsType> = (props) => {
+const Sorter = React.memo (function Sorter (props:PropsType) {
     // Создание локального состояния попапа для вкл./выкл.
     const [sortingPopup, showSortingPopup] = useState<boolean | null>(false)
     // Состояние выбранного (активного) фильтра
@@ -69,6 +69,6 @@ const Sorter: React.FC<PropsType> = (props) => {
             }
 
         </div>
-)}
+)})
 
 export default Sorter
