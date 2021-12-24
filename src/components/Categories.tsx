@@ -1,30 +1,25 @@
-import React, { useState} from 'react';
+import React from 'react';
 
-type PropsType = {
+type CategoryType = {
     pizzas: Array<string>
     onClickItem?: any
+    activeCategory: number | null
 }
 
-const Categories = React.memo(function Categories(props: PropsType) {
-    const [activeButton, setActiveButton] = useState<number | null>(null)
-
-    const onSelectedItem = (index: any) => {
-        setActiveButton(index)
-        props.onClickItem(index)
-    }
+const Categories = React.memo(function Categories(props: CategoryType) {
 
     return (
         <div className="categories">
             <ul>
                 <li
-                    className={activeButton === null ? 'active' : ''}
-                    onClick={() => {onSelectedItem(null)}}>Все</li>
+                    className={props.activeCategory === null ? 'active' : ''}
+                    onClick={() => {props.onClickItem(null)}}>Все</li>
 
-                {props.pizzas.map((pizzaName: string, index) =>
-                    <li className={activeButton === index ? 'active' : ''}
+                {props.pizzas.map((pizzaName: string, index: number) =>
+                    <li className={props.activeCategory === index ? 'active' : ''}
                         key={index}
                         onClick={() => {
-                            onSelectedItem(index)
+                            props.onClickItem(index)
                         }}>
                         {pizzaName}
                     </li>)}

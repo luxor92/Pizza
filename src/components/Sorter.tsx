@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState} from "react";
 
-type PropsType = {
-    filters: any
+type SortingType = {
+    filters: any,
+    activeSorting: string,
+    onClickSortingPopup?: any
 }
 
-const Sorter = React.memo (function Sorter (props:PropsType) {
+const Sorter = React.memo (function Sorter (props:SortingType) {
     // Создание локального состояния попапа для вкл./выкл.
     const [sortingPopup, showSortingPopup] = useState<boolean | null>(false)
-    // Состояние выбранного (активного) фильтра
-    const [activeFilter, setActiveFilter] = useState<number>(0)
     // Ссылка на div-элемент попапа сортировки
     const sortRef = useRef()
     // Ссылка на выбранный фильтр
-    const activeLabel = props.filters[activeFilter].name
+    const activeLabel = props.filters.find((filter: any) => filter.type === props.activeSorting).name
     // Подписка на все события кликов
     useEffect(() => {
         document.body.addEventListener('click', handleOutsideClick)
@@ -29,8 +29,9 @@ const Sorter = React.memo (function Sorter (props:PropsType) {
         showSortingPopup(!sortingPopup)
     }
     // Смена состояния выбранного фильтра (для онклика)
-    const onSelectedFilter = (index: any) => {
-        setActiveFilter(index)
+    const onSelectedFilter = (index: number) => {
+        props.onClickSortingPopup(index)
+        showSortingPopup(false)
     }
 
     return (
@@ -57,10 +58,10 @@ const Sorter = React.memo (function Sorter (props:PropsType) {
             { sortingPopup &&
             <div className="sort__popup">
                 <ul>
-                    { props.filters.map((filter: any, index:number) =>
-                    <li className={activeFilter === index ? 'active' : ''}
+                    { props.filters.map((filter: any, index:string) =>
+                    <li className={props.activeSorting === index ? 'active' : ''}
                         key={index}
-                        onClick={() => onSelectedFilter(index)}>
+                        onClick={() => onSelectedFilter(filter)}>
                         {filter.name}
                     </li>
                     )}

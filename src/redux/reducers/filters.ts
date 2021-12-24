@@ -1,9 +1,19 @@
+type InitialStateType = {
+    sortBy: {
+        type: string,
+        order: string
+    },
+    category: null | number
+}
 const initialState = {
-    sortBy: 'popular',
-    category: 0
+    category: null,
+    sortBy: {
+        type: "popular",
+        order: "desc"
+    }
 }
 
-const filtersReducer = (state = initialState, action: any) => {
+const filtersReducer = (state: InitialStateType = initialState, action: any) => {
     switch (action.type) {
         case 'SET_SORT_BY':
             return {

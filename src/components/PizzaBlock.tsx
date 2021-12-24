@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import cn from "classnames";
 
-type PropsType = {
+export type PizzaType = {
     id?: number
     imageUrl: string
     name: string
@@ -10,9 +10,10 @@ type PropsType = {
     price: number
     category?: number
     rating?: number
+    isLoading: boolean
 }
 
-function PizzaBlock(props: PropsType) {
+function PizzaBlock(props: PizzaType) {
     const availableTypes = ["тонкое", "традиционное"]
     const availableSizes = [26, 30, 40]
 
