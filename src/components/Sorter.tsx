@@ -19,8 +19,9 @@ const Sorter = React.memo (function Sorter (props:SortingType) {
     }, [])
 
     // Скрытие попапа сортировки
-    const handleOutsideClick = (e: any) => {
-        if (!e.path.includes(sortRef.current)) {
+    const handleOutsideClick = (event: any) => {
+        const path = event.path || (event.composedPath && event.composedPath())
+        if (!path.includes(sortRef.current)) {
             showSortingPopup(false)
         }
     }

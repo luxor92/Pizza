@@ -11,6 +11,8 @@ export type PizzaType = {
     category?: number
     rating?: number
     isLoading: boolean
+    onAddPizza?: any,
+    addedCount?: any
 }
 
 function PizzaBlock(props: PizzaType) {
@@ -19,6 +21,18 @@ function PizzaBlock(props: PizzaType) {
 
     const [type, setActiveType] = useState<number>(props.types[0])
     const [activeSize, setActiveSize] = useState<number>(0)
+
+    const onAddPizza = () => {
+        const obj = {
+            id: props.id,
+            name: props.name,
+            imageUrl: props.imageUrl,
+            price: props.price,
+            size: availableSizes[activeSize],
+            type: availableTypes[type]
+        }
+        props.onAddPizza(obj)
+    }
 
     return (
         <div className="pizza-block">
@@ -59,7 +73,8 @@ function PizzaBlock(props: PizzaType) {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {props.price} ₽</div>
-                <div className="button button--outline button--add">
+                <div onClick={onAddPizza}
+                     className="button button--outline button--add">
                     <svg
                         width="12"
                         height="12"
@@ -73,7 +88,7 @@ function PizzaBlock(props: PizzaType) {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
+                    {props.addedCount && <i>{props.addedCount}</i>}
                 </div>
             </div>
         </div>

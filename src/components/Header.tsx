@@ -2,8 +2,16 @@ import React from "react";
 import {Link} from "react-router-dom";
 import pizzalogo from "../assets/img/pizza-logo.svg";
 import Button from "./Button";
+import {useSelector} from "react-redux";
+import {RootState} from "../redux/store";
 
 function Header() {
+    // Во избежание лишнего перерендера нужно указать за какими параметрами следить в селекторе
+    const { totalPrice, totalCount} = useSelector((state: RootState) => ({
+        totalPrice: state.cartReducer.totalPrice,
+        totalCount: state.cartReducer.totalCount,
+    }))
+
     return (
         <div className="header">
 
@@ -20,7 +28,7 @@ function Header() {
 
                 <div className="header__cart">
                     <Link to={"/cart"}>
-                        <Button name={"Корзина"} className={"button--cart"}/>
+                        <Button name={"Корзина"} className={"button--cart"} totalPrice={totalPrice} totalCount={totalCount}/>
                     </Link>
                 </div>
             </div>

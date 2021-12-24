@@ -5,13 +5,15 @@ type PropsType = {
     name: string
     className?: string
     outline?: boolean
+    totalPrice?: number,
+    totalCount?: number
 }
 
-const Button: React.FC<PropsType> = ({name, className,outline}) => {
+const Button: React.FC<PropsType> = ({name, className,outline,
+                                     totalCount, totalPrice}) => {
     return (
-        <button /*onClick={() => alert("123")}*/
-                className={cn('button', className, {"button--outline": outline})}>
-                <span>520 ₽</span>
+        <button className={cn('button', className, {"button--outline": outline})}>
+                <span>{totalPrice} ₽</span>
                 <div className="button__delimiter"></div>
                 <svg
                     width="18"
@@ -42,7 +44,7 @@ const Button: React.FC<PropsType> = ({name, className,outline}) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-                <span>3</span>
+                <span>{totalCount}</span>
         </button>
     )
 }

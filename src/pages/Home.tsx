@@ -9,6 +9,7 @@ import {getPizzas} from "../api/api";
 import Preloader from "../components/Preloader";
 import index from "classnames";
 import {setLoadingAC} from "../redux/actions/pizzas";
+import {addPizzaToCartAC} from "../redux/actions/cart";
 
 // Вынесли отдельно, чтобы не было лишнего перерендера (+memo, +useCallback)
 const categoryNames = ['Грибная', 'Веганская', 'Итальянская', 'Мексиканская', 'Острая']
@@ -22,6 +23,9 @@ function Home() {
     const items = useSelector((state: RootState) => state.pizzasReducer.pizzas)
     const isLoaded = useSelector((state: RootState) => state.pizzasReducer.isLoaded)
     const {category, sortBy} = useSelector((state: RootState) => state.filtersReducer)
+    const cartItems = useSelector((state: RootState) => state.cartReducer.totalPizzas)
+
+    console.log(cartItems)
 
     const dispatch = useDispatch()
 
@@ -31,6 +35,9 @@ function Home() {
     const onClickSortingPopup = useCallback((type: string) => {
         dispatch(setSortByAC(type))
     }, [])
+    const addPizzaToCart = (obj: any) => {
+        dispatch(addPizzaToCartAC(obj))
+    }
 
     // Получение пицц при первом рендере
     useEffect(() => {
@@ -54,11 +61,13 @@ function Home() {
 
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {isLoaded ? (items.map((item: PizzaType, index: number) =>
+                {isLoaded ? (items.map((item: PizzaType, index: any) =>
                         <PizzaBlock
                             {...item}
                             key={item.id}
                             isLoading={true}
+                            onAddPizza={addPizzaToCart}
+                            addedCount={cartItems[item.id] && cartItems[item.id].length}
                         />))
                     : Array(12).fill(0).map((_, index) => <Preloader key={index}/>)
                 }
