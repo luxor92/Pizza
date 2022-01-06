@@ -21,14 +21,3 @@ function App() {
 
 export default App
 
-/*const mapState = (state: any) => {
-    return {
-        pizzas: state.pizzasReducer.pizzas,
-        filters: state.filtersReducer
-    }
-}
-const mapDispatch = {
-    setPizzasAC
-}
-
-export default connect(mapState, mapDispatch)(App);*/

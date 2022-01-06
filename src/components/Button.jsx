@@ -1,16 +1,15 @@
 import React from "react";
 import cn from "classnames";
 
-type PropsType = {
+/*type PropsType = {
     name: string
     className?: string
     outline?: boolean
-    totalPrice?: number,
-    totalCount?: number
-}
+    totalPrice?: any,
+    totalCount?: any
+}*/
 
-const Button: React.FC<PropsType> = ({name, className,outline,
-                                     totalCount, totalPrice}) => {
+const Button= ({name, className,outline, totalCount, totalPrice}) => {
     return (
         <button className={cn('button', className, {"button--outline": outline})}>
                 <span>{totalPrice} ₽</span>

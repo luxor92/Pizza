@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import cn from "classnames";
 
-export type PizzaType = {
+/*export type PizzaType = {
     id?: number
     imageUrl: string
     name: string
@@ -13,14 +13,14 @@ export type PizzaType = {
     isLoading: boolean
     onAddPizza?: any,
     addedCount?: any
-}
+}*/
 
-function PizzaBlock(props: PizzaType) {
+function PizzaBlock(props) {
     const availableTypes = ["тонкое", "традиционное"]
     const availableSizes = [26, 30, 40]
 
-    const [type, setActiveType] = useState<number>(props.types[0])
-    const [activeSize, setActiveSize] = useState<number>(0)
+    const [type, setActiveType] = useState(props.types[0])
+    const [activeSize, setActiveSize] = useState(0)
 
     const onAddPizza = () => {
         const obj = {
@@ -44,7 +44,7 @@ function PizzaBlock(props: PizzaType) {
             <h4 className="pizza-block__title"> {props.name} </h4>
             <div className="pizza-block__selector">
                 <ul>
-                    {availableTypes.map((types: string, index: number) =>
+                    {availableTypes.map((types, index) =>
                         <li className={cn({
                             'active': type === index,
                             'disabled': !props.types.includes(index)
@@ -57,7 +57,7 @@ function PizzaBlock(props: PizzaType) {
                         </li>)}
                 </ul>
                 <ul>
-                    {availableSizes.map((size: number, index: number) =>
+                    {availableSizes.map((size, index) =>
                         <li key={index}
                             className={cn({
                                 'active': activeSize === index,

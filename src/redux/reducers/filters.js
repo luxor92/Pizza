@@ -1,10 +1,10 @@
-type InitialStateType = {
+/*type InitialStateType = {
     sortBy: {
         type: string,
         order: string
     },
     category: null | number
-}
+}*/
 const initialState = {
     category: null,
     sortBy: {
@@ -13,7 +13,7 @@ const initialState = {
     }
 }
 
-const filtersReducer = (state: InitialStateType = initialState, action: any) => {
+const filtersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_SORT_BY':
             return {

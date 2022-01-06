@@ -1,12 +1,12 @@
 import React from 'react';
 
-type CategoryType = {
+/*type CategoryType = {
     pizzas: Array<string>
     onClickItem?: any
     activeCategory: number | null
-}
+}*/
 
-const Categories = React.memo(function Categories(props: CategoryType) {
+const Categories = React.memo(function Categories(props) {
 
     return (
         <div className="categories">
@@ -15,7 +15,7 @@ const Categories = React.memo(function Categories(props: CategoryType) {
                     className={props.activeCategory === null ? 'active' : ''}
                     onClick={() => {props.onClickItem(null)}}>Все</li>
 
-                {props.pizzas.map((pizzaName: string, index: number) =>
+                {props.pizzas.map((pizzaName, index) =>
                     <li className={props.activeCategory === index ? 'active' : ''}
                         key={index}
                         onClick={() => {

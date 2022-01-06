@@ -12,7 +12,7 @@ import {setLoadingAC} from "../redux/actions/pizzas";
 import {addPizzaToCartAC} from "../redux/actions/cart";
 
 // Вынесли отдельно, чтобы не было лишнего перерендера (+memo, +useCallback)
-const categoryNames = ['Грибная', 'Веганская', 'Итальянская', 'Мексиканская', 'Острая']
+const categoryNames = ['Итальянская', 'Вегетарианская', 'Грибная', 'Мексиканская', 'Острая']
 const sortItems = [
     {name: 'популярности', type: 'popular', order: 'desc'},
     {name: 'цене', type: 'price', order: 'asc'},
@@ -20,22 +20,20 @@ const sortItems = [
 ]
 
 function Home() {
-    const items = useSelector((state: RootState) => state.pizzasReducer.pizzas)
-    const isLoaded = useSelector((state: RootState) => state.pizzasReducer.isLoaded)
-    const {category, sortBy} = useSelector((state: RootState) => state.filtersReducer)
-    const cartItems = useSelector((state: RootState) => state.cartReducer.totalPizzas)
-
-    console.log(cartItems)
+    const items = useSelector((state) => state.pizzasReducer.pizzas)
+    const isLoaded = useSelector((state) => state.pizzasReducer.isLoaded)
+    const {category, sortBy} = useSelector((state) => state.filtersReducer)
+    const cartItems = useSelector((state) => state.cartReducer.totalPizzas)
 
     const dispatch = useDispatch()
 
-    const onSelectedCategory = useCallback((index: number) => {
+    const onSelectedCategory = useCallback((index) => {
         dispatch(setCategoryAC(index))
     }, [])
-    const onClickSortingPopup = useCallback((type: string) => {
+    const onClickSortingPopup = useCallback((type) => {
         dispatch(setSortByAC(type))
     }, [])
-    const addPizzaToCart = (obj: any) => {
+    const addPizzaToCart = (obj) => {
         dispatch(addPizzaToCartAC(obj))
     }
 
@@ -61,13 +59,13 @@ function Home() {
 
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {isLoaded ? (items.map((item: PizzaType, index: any) =>
+                {isLoaded ? (items.map((item, index) =>
                         <PizzaBlock
                             {...item}
                             key={item.id}
                             isLoading={true}
                             onAddPizza={addPizzaToCart}
-                            addedCount={cartItems[item.id] && cartItems[item.id].length}
+                            addedCount={cartItems[item.id] && cartItems[item.id].totalPizzas.length}
                         />))
                     : Array(12).fill(0).map((_, index) => <Preloader key={index}/>)
                 }

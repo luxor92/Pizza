@@ -1,25 +1,25 @@
 import React, { useEffect, useRef, useState} from "react";
 
-type SortingType = {
+/*type SortingType = {
     filters: any,
     activeSorting: string,
     onClickSortingPopup?: any
-}
+}*/
 
-const Sorter = React.memo (function Sorter (props:SortingType) {
+const Sorter = React.memo (function Sorter (props) {
     // Создание локального состояния попапа для вкл./выкл.
-    const [sortingPopup, showSortingPopup] = useState<boolean | null>(false)
+    const [sortingPopup, showSortingPopup] = useState(false)
     // Ссылка на div-элемент попапа сортировки
     const sortRef = useRef()
     // Ссылка на выбранный фильтр
-    const activeLabel = props.filters.find((filter: any) => filter.type === props.activeSorting).name
+    const activeLabel = props.filters.find((filter) => filter.type === props.activeSorting).name
     // Подписка на все события кликов
     useEffect(() => {
         document.body.addEventListener('click', handleOutsideClick)
     }, [])
 
     // Скрытие попапа сортировки
-    const handleOutsideClick = (event: any) => {
+    const handleOutsideClick = (event) => {
         const path = event.path || (event.composedPath && event.composedPath())
         if (!path.includes(sortRef.current)) {
             showSortingPopup(false)
@@ -30,7 +30,7 @@ const Sorter = React.memo (function Sorter (props:SortingType) {
         showSortingPopup(!sortingPopup)
     }
     // Смена состояния выбранного фильтра (для онклика)
-    const onSelectedFilter = (index: number) => {
+    const onSelectedFilter = (index) => {
         props.onClickSortingPopup(index)
         showSortingPopup(false)
     }
@@ -59,7 +59,7 @@ const Sorter = React.memo (function Sorter (props:SortingType) {
             { sortingPopup &&
             <div className="sort__popup">
                 <ul>
-                    { props.filters.map((filter: any, index:string) =>
+                    { props.filters.map((filter, index) =>
                     <li className={props.activeSorting === index ? 'active' : ''}
                         key={index}
                         onClick={() => onSelectedFilter(filter)}>

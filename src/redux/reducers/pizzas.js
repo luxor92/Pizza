@@ -1,13 +1,13 @@
-type InitialStateType = {
+/*type InitialStateType = {
     pizzas: Array<object>,
     isLoaded: boolean
-}
+}*/
 const initialState = {
     pizzas: [],
     isLoaded: false
 }
 
-const pizzasReducer = (state: InitialStateType = initialState, action: any) => {
+const pizzasReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_PIZZAS':
             return {

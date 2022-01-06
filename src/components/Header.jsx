@@ -7,7 +7,7 @@ import {RootState} from "../redux/store";
 
 function Header() {
     // Во избежание лишнего перерендера нужно указать за какими параметрами следить в селекторе
-    const { totalPrice, totalCount} = useSelector((state: RootState) => ({
+    const { totalPrice, totalCount} = useSelector((state) => ({
         totalPrice: state.cartReducer.totalPrice,
         totalCount: state.cartReducer.totalCount,
     }))
