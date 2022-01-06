@@ -101,29 +101,39 @@ const cartReducer = (state = initialState, action) => {
                 ...state.totalPizzas[action.payload].totalPizzas,
                 state.totalPizzas[action.payload].totalPizzas[0]
             ]
+            const newItems = {
+                ...state.totalPizzas,
+                [action.payload]: {
+                    totalPizzas: plusPizzaItems,
+                    totalPrice: getTotalPrice(plusPizzaItems)
+                }
+            }
+            const totalCount = getTotalSum(newItems, 'totalPizzas.length');
+            const totalPrice = getTotalSum(newItems, 'totalPrice');
             return {
                 ...state,
-                totalPizzas: {
-                    ...state.totalPizzas,
-                    [action.payload]: {
-                        totalPizzas: plusPizzaItems,
-                        totalPrice: getTotalPrice(plusPizzaItems)
-                    }
-                }
+                totalPizzas: newItems,
+                totalPrice,
+                totalCount,
             }
         }
         case MINUS_CART_ITEM: {
             const oldItems = state.totalPizzas[action.payload].totalPizzas
             const minusPizzaItems = oldItems.length > 1 ? state.totalPizzas[action.payload].totalPizzas.slice(1) : oldItems
+            const newItems = {
+                ...state.totalPizzas,
+                [action.payload]: {
+                    totalPizzas: minusPizzaItems,
+                    totalPrice: getTotalPrice(minusPizzaItems)
+                }
+            }
+            const totalCount = getTotalSum(newItems, 'totalPizzas.length');
+            const totalPrice = getTotalSum(newItems, 'totalPrice');
             return {
                 ...state,
-                totalPizzas: {
-                    ...state.totalPizzas,
-                    [action.payload]: {
-                        totalPizzas: minusPizzaItems,
-                        totalPrice: getTotalPrice(minusPizzaItems)
-                    }
-                }
+                totalPizzas: newItems,
+                totalPrice,
+                totalCount,
             }
         }
         default:
